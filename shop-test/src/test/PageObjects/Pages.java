@@ -1,8 +1,9 @@
 
-public class Pages {
+public class Pages extends BasePage{
 
 	
 	String search = "fulltext";
+	String searchReset = "#container > div > div.admin__data-grid-header > div:nth-child(1) > div.admin__data-grid-filters-current._show > div.admin__current-filters-list-wrap > ul > li > button";
 	
 	String filtersBar = "action-default";
 	String filtersFromIDFilter = "fromIDFilter";
@@ -18,4 +19,12 @@ public class Pages {
 	String sortTitle = "sortTitle";
 	String sortURLKey = "sortURLKey";
 	
+	public void searchBar(query) {
+		waitAndFind(id(search)).click();
+		waitAndFind(id(search)).sendKeys(String query);
+	}
+	
+	public void searchReset() {
+		waitAndFind(cssSelector(searchReset)).click();
+	}
 }
