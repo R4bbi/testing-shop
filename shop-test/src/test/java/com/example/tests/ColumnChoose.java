@@ -72,9 +72,6 @@ public class ColumnChoose {
     List<WebElement> elements = driver.findElements(By.tagName("th"));
     System.out.println("liczba kolumn: " +elements.size());
     
-    
-    //System.out.println(eleSize);
-    
     for (int i = 1, j = elements.size()-1; i <= 9; i++, j--) {
     	driver.findElement(By.id(Integer.toString(i))).click();
     	elements.remove(0);
