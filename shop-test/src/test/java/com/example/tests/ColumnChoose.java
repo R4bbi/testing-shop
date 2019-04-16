@@ -1,18 +1,26 @@
 package com.example.tests;
 
-import java.util.regex.Pattern;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
+import java.util.List;
 import java.util.concurrent.TimeUnit;
-import org.junit.*;
-import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
-import org.openqa.selenium.*;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoAlertPresentException;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import java.util.ArrayList;
 
 public class ColumnChoose {
   private WebDriver driver;
@@ -60,11 +68,21 @@ public class ColumnChoose {
     driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Title'])[1]/following::label[1]")).click();
     driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Columns'])[1]/following::div[4]")).click();
     
-    System.out.print(driver.findElements(By.tagName("th")));
     
-    for (int i = 1; i <= 9; i++) {
+    List<WebElement> elements = driver.findElements(By.tagName("th"));
+    System.out.println("liczba kolumn: " +elements.size());
+    
+    
+    //System.out.println(eleSize);
+    
+    for (int i = 1, j = elements.size()-1; i <= 9; i++, j--) {
     	driver.findElement(By.id(Integer.toString(i))).click();
+    	elements.remove(0);
+    	System.out.println("liczba kolumn: " +elements.size());
+    	assertEquals(j, elements.size());
+    	
     	Thread.sleep(500);
+    	
     }
     
     driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Action'])[1]/following::button[1]")).click();
